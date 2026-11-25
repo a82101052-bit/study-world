@@ -1,0 +1,761 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="STUDY WORLD - سایت آموزشی، مطالعه و یادگیری">
+<title>STUDY WORLD | دنیای یادگیری</title>
+<style>
+:root{--primary:#3157c8;--dark:#203b91;--accent:#f4b942;--bg:#f4f6fb;--card:#fff;--text:#20283a;--muted:#6b7280;--line:#e5e9f2;--green:#168653}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.9}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.site-shell{width:100%;overflow:hidden}.wrap{width:min(1160px,94%);margin:auto}
+header{background:linear-gradient(130deg,#172d72,#3157c8 65%,#6788ef);color:white;text-align:center;padding:48px 16px 40px;position:relative;overflow:hidden}
+header:after{content:"📚";position:absolute;font-size:170px;opacity:.08;left:5%;top:-55px;transform:rotate(-15deg)}
+.header-inner{position:relative;z-index:1}header h1{margin:0;font-size:clamp(28px,5vw,44px)}header p{margin:8px 0 0;color:#e8edff}
+nav{position:sticky;top:0;z-index:50;background:#172d72;box-shadow:0 4px 16px #172d7225}
+.nav-inner{width:min(1200px,96%);margin:auto;display:flex;gap:3px;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}.nav-inner a{color:white;text-decoration:none;padding:13px 14px;white-space:nowrap;font-size:13px;border-bottom:3px solid transparent}
+.nav-inner a:hover{color:#ffe08a;border-color:#ffe08a}
+.hero{margin:28px 0;padding:clamp(24px,4vw,38px);border-radius:22px;color:white;background:linear-gradient(120deg,#172d72,#3157c8 70%,#5377e6);display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;box-shadow:0 12px 30px #172d7220}
+.hero h2{margin:0 0 8px}.hero p{margin:0;color:#e5eaff}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#ffffff17;border:1px solid #ffffff30;padding:12px;border-radius:14px;text-align:center}.stat strong{display:block;font-size:26px;color:#ffe08a}
+.section{margin:42px 0}.heading{display:flex;align-items:center;gap:12px;margin-bottom:18px;color:var(--dark)}.heading:after{content:"";height:3px;flex:1;background:linear-gradient(to left,var(--primary),transparent);border-radius:5px}.heading h2{margin:0;font-size:22px;white-space:nowrap}.sub{font-size:12px;color:var(--muted);font-weight:normal;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:0 5px 18px #172d7209;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#b9c8f5}.card h3{margin:7px 0;color:var(--dark);font-size:17px}.card p{margin:4px 0;color:var(--muted);font-size:13px}
+.emoji{font-size:32px}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:10px 16px;background:var(--primary);color:white;text-decoration:none;margin-top:10px}
+.btn:hover{background:var(--dark)}.btn.light{background:#edf1ff;color:var(--dark)}.btn.gold{background:var(--accent);color:#392900}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.input,textarea,select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:white;color:var(--text);outline:none}
+.input:focus,textarea:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #3157c81a}
+textarea{min-height:110px;resize:vertical}.form-row{display:flex;gap:9px;margin:10px 0}.form-row>*{flex:1;min-width:0}
+.quote{background:linear-gradient(120deg,#fff8e7,#fff);border:1px solid #f4dfac;border-radius:18px;padding:25px;text-align:center}.quote blockquote{font-size:20px;color:#76520b;margin:8px 0 14px}
+.story{border-right:4px solid var(--accent)}.task{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--line)}.task input{width:18px;height:18px;accent-color:var(--green)}
+.progress{height:12px;background:#e9edf5;border-radius:20px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#3157c8,#35b17b);transition:.3s}
+.quiz-option{display:block;width:100%;text-align:right;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 13px;margin:8px 0}.quiz-option:hover{border-color:var(--primary);background:#f5f7ff}
+.quiz-option.selected{border-color:var(--primary);background:#edf1ff}.feedback{font-weight:bold;margin-top:10px}
+.timer{text-align:center;background:#172d72;color:white;border-radius:18px;padding:25px}.timer-display{font-size:48px;font-weight:bold;direction:ltr;font-variant-numeric:tabular-nums}
+footer{margin-top:50px;background:#172033;color:#d8deeb;text-align:center;padding:28px 15px}footer strong{color:white}
+#toast{position:fixed;left:20px;bottom:20px;background:#172033;color:#fff;padding:11px 16px;border-radius:10px;opacity:0;transform:translateY(12px);transition:.2s;z-index:100;pointer-events:none}#toast.show{opacity:1;transform:none}
+@media(max-width:850px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.hero{grid-template-columns:1fr}.grid,.grid-4{grid-template-columns:1fr}.heading h2{font-size:19px}.sub{display:none}.form-row{flex-direction:column}.timer-display{font-size:40px}}
+
+/* کتابخانه کتاب‌های درسی */
+.book-filters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.book-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.book-item{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px}
+.book-item h4{margin:0 0 5px;color:var(--dark);font-size:15px}
+.book-item p{margin:0;color:var(--muted);font-size:12px}
+.book-meta{font-size:11px!important;margin-top:6px!important}
+.book-notice{background:#fff8e7;border:1px solid #f4dfac;border-radius:12px;padding:13px;color:#76520b;font-size:12px;margin-top:14px}
+@media(max-width:850px){.book-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.book-filters,.book-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="site-shell">
+
+<header id="home">
+<div class="header-inner">
+<h1>📚 STUDY WORLD</h1>
+<p>دنیای یادگیری؛ هر روز یک قدم به موفقیت نزدیک‌تر شو</p>
+</div>
+</header>
+
+<nav aria-label="منوی اصلی">
+<div class="nav-inner">
+<a href="#home">خانه</a>
+<a href="#lessons">درس‌های من</a>
+<a href="#textbooks">کتاب‌های درسی</a>
+<a href="#study">برنامه مطالعه</a>
+<a href="#motivation">انگیزشی</a>
+<a href="#stories">داستان‌ها</a>
+<a href="#quiz">آزمون‌ها</a>
+<a href="#notes">یادداشت‌ها</a>
+<a href="#progress">پیشرفت من</a>
+<a href="#timer">تایمر مطالعه</a>
+<a href="#resources">منابع مفید</a>
+</div>
+</nav>
+
+<main class="wrap">
+
+<section class="hero">
+<div>
+<h2>به دنیای یادگیری خوش آمدی! 🌟</h2>
+<p>اینجا می‌توانی درس بخوانی، برنامه‌ریزی کنی، دانسته‌هایت را بسنجی و پیشرفت خودت را دنبال کنی. موفقیت با قدم‌های کوچک ساخته می‌شود.</p>
+<a class="btn gold" href="#study">شروع برنامه امروز</a>
+</div>
+<div class="stats">
+<div class="stat"><strong id="statTasks">۰</strong>کارهای انجام‌شده</div>
+<div class="stat"><strong id="statNotes">۰</strong>یادداشت‌ها</div>
+<div class="stat"><strong id="statLessons">۶</strong>موضوع درسی</div>
+<div class="stat"><strong id="statScore">—</strong>آخرین نمره آزمون</div>
+</div>
+</section>
+
+<section class="section" id="lessons">
+<div class="heading"><h2>📖 درس‌های من</h2><span class="sub">موضوعات آموزشی</span></div>
+<div class="grid grid-4">
+<article class="card"><div class="emoji">➗</div><h3>ریاضی</h3><p>تمرین محاسبات، مسئله‌ها و مفاهیم ریاضی</p></article>
+<article class="card"><div class="emoji">🔬</div><h3>علوم</h3><p>آشنایی با طبیعت، بدن، انرژی و آزمایش‌ها</p></article>
+<article class="card"><div class="emoji">📝</div><h3>فارسی</h3><p>خواندن، نوشتن، املا و دستور زبان</p></article>
+<article class="card"><div class="emoji">🌍</div><h3>زبان انگلیسی</h3><p>واژگان، گرامر و مکالمه روزمره</p></article>
+<article class="card"><div class="emoji">🏛️</div><h3>تاریخ</h3><p>رویدادها و شخصیت‌های تاریخی</p></article>
+<article class="card"><div class="emoji">🗺️</div><h3>جغرافیا</h3><p>کشورها، قاره‌ها و محیط زیست</p></article>
+<article class="card"><div class="emoji">💻</div><h3>فناوری</h3><p>مهارت‌های دیجیتال و آشنایی با رایانه</p></article>
+<article class="card"><div class="emoji">🎨</div><h3>هنر و خلاقیت</h3><p>ایده‌پردازی، طراحی و فعالیت‌های خلاقانه</p></article>
+</div>
+</section>
+
+<section class="section" id="textbooks">
+<div class="heading">
+<h2>📚 کتابخانه کتاب‌های درسی</h2>
+<span class="sub">ابتدایی تا متوسطه دوم</span>
+</div>
+
+<div class="card">
+<p>پایه و رشته را انتخاب کن تا فهرست کتاب‌های آموزشی نمایش داده شود.</p>
+
+<div class="book-filters">
+<div>
+<label for="bookGrade">پایه تحصیلی</label>
+<select id="bookGrade" class="input">
+<option value="1">اول ابتدایی</option>
+<option value="2">دوم ابتدایی</option>
+<option value="3">سوم ابتدایی</option>
+<option value="4">چهارم ابتدایی</option>
+<option value="5">پنجم ابتدایی</option>
+<option value="6">ششم ابتدایی</option>
+<option value="7">هفتم</option>
+<option value="8">هشتم</option>
+<option value="9">نهم</option>
+<option value="10">دهم</option>
+<option value="11">یازدهم</option>
+<option value="12">دوازدهم</option>
+</select>
+</div>
+
+<div>
+<label for="bookTrack">رشته / شاخه</label>
+<select id="bookTrack" class="input">
+<option value="general">عمومی / مشترک</option>
+<option value="math">ریاضی‌فیزیک</option>
+<option value="science">علوم تجربی</option>
+<option value="humanities">ادبیات و علوم انسانی</option>
+<option value="islamic">علوم و معارف اسلامی</option>
+<option value="technical-industry">فنی‌وحرفه‌ای – صنعت</option>
+<option value="technical-art">فنی‌وحرفه‌ای – هنر</option>
+<option value="technical-service">فنی‌وحرفه‌ای – خدمات</option>
+<option value="technical-agri">فنی‌وحرفه‌ای – کشاورزی</option>
+<option value="kardanesh">کاردانش</option>
+</select>
+</div>
+
+<div>
+<label for="bookSearch">جست‌وجوی نام کتاب</label>
+<input id="bookSearch" class="input" type="search" placeholder="مثلاً ریاضی، فارسی، علوم...">
+</div>
+</div>
+
+<div class="row">
+<span id="bookCount" class="sub" aria-live="polite"></span>
+<a class="btn" href="https://chap.sch.ir/" target="_blank" rel="noopener">
+ورود به پایگاه رسمی کتاب‌های درسی
+</a>
+</div>
+
+<div id="bookList" class="book-list" aria-live="polite"></div>
+
+<div class="book-notice">
+<strong>توجه:</strong>
+این فهرست، نمایه آموزشی و راهنمای انتخاب کتاب‌هاست. در رشته‌های فنی‌وحرفه‌ای و کاردانش،
+عنوان کتاب‌های تخصصی با توجه به رشته و کد شاخه متفاوت است. برای دریافت فهرست کامل و فایل PDF
+همان سال تحصیلی، از پایگاه رسمی کتاب‌های درسی استفاده کن. نسخه‌های رسمی ممکن است هر سال تغییر کنند.
+</div>
+</div>
+</section>
+
+<section class="section" id="study">
+<div class="heading"><h2>🎯 برنامه مطالعه من</h2><span class="sub">کارهای امروز را علامت بزن</span></div>
+<div class="card">
+<p>برای شروع، کارهای پیشنهادی را انجام بده. می‌توانی عنوان کارهای خودت را هم اضافه کنی.</p>
+<div id="taskList">
+<label class="task"><input type="checkbox" class="task-check"> ۲۵ دقیقه مطالعه یک درس</label>
+<label class="task"><input type="checkbox" class="task-check"> مرور نکات جلسه قبل</label>
+<label class="task"><input type="checkbox" class="task-check"> حل چند تمرین</label>
+<label class="task"><input type="checkbox" class="task-check"> ۱۰ دقیقه مطالعه آزاد</label>
+</div>
+<div class="form-row">
+<input id="newTask" class="input" placeholder="کار جدید را بنویس...">
+<button class="btn" id="addTask">افزودن کار</button>
+</div>
+<div class="progress"><span id="taskProgress"></span></div>
+<p id="taskSummary">۰ از ۴ کار انجام شده است.</p>
+</div>
+</section>
+
+<section class="section" id="motivation">
+<div class="heading"><h2>🔥 بخش انگیزشی</h2><span class="sub">برای ادامه دادن</span></div>
+<div class="quote">
+<div class="emoji">🌟</div>
+<blockquote id="quoteText">موفقیت نتیجه قدم‌های کوچک و پیوسته است.</blockquote>
+<button class="btn gold" id="newQuote">جمله انگیزشی جدید</button>
+</div>
+<div class="grid" style="margin-top:16px">
+<article class="card">
+<div class="emoji">🎯</div><h3>هدف امروز</h3>
+<p>یک هدف کوچک و قابل انجام برای امروز انتخاب کن.</p>
+<input id="dailyGoal" class="input" placeholder="هدف امروز من...">
+<button class="btn" id="saveGoal">ذخیره هدف</button>
+<p id="goalDisplay"></p>
+</article>
+<article class="card"><div class="emoji">💡</div><h3>یادآوری</h3><p>لازم نیست همه‌چیز را یک‌باره یاد بگیری. استمرار و استراحت کافی به یادگیری بهتر کمک می‌کند.</p></article>
+<article class="card"><div class="emoji">👏</div><h3>به خودت افتخار کن</h3><p>هر تمرین، هر صفحه و هر پرسش تازه، بخشی از مسیر یادگیری توست.</p></article>
+</div>
+</section>
+
+<section class="section" id="stories">
+<div class="heading"><h2>📚 داستان‌های آموزنده</h2><span class="sub">داستان کوتاه و الهام‌بخش</span></div>
+<div class="grid">
+<article class="card story">
+<div class="emoji">🌱</div><h3>بذر کوچک</h3>
+<p>دانش‌آموزی هر روز دانه‌ای می‌کاشت و از آن مراقبت می‌کرد. روزهای اول تغییری نمی‌دید، اما دست از تلاش نکشید. پس از مدتی جوانه‌ای کوچک از خاک بیرون آمد. او فهمید نتیجه بعضی تلاش‌ها دیرتر دیده می‌شود، اما مراقبت روزانه اهمیت دارد.</p>
+<p><b>پیام داستان:</b> با صبر و استمرار می‌توان پیشرفت کرد.</p>
+</article>
+<article class="card story">
+<div class="emoji">🧩</div><h3>قطعه آخر</h3>
+<p>کودکی برای کامل کردن یک پازل عجله داشت. هر بار که قطعه‌ای پیدا نمی‌کرد، تصویر را از نو بررسی می‌کرد. کم‌کم یاد گرفت مسئله را به بخش‌های کوچک تقسیم کند. سرانجام پازل کامل شد.</p>
+<p><b>پیام داستان:</b> مسئله‌های بزرگ را مرحله‌به‌مرحله حل کن.</p>
+</article>
+<article class="card story">
+<div class="emoji">📘</div><h3>دفتر تمرین</h3>
+<p>دانش‌آموزی از اشتباه کردن در تمرین‌ها ناراحت می‌شد. معلم به او گفت هر اشتباه می‌تواند نشانه‌ای باشد که کدام بخش را باید دوباره یاد بگیرد. او اشتباه‌هایش را بررسی کرد و کم‌کم بهتر شد.</p>
+<p><b>پیام داستان:</b> اشتباه بخشی طبیعی از یادگیری است.</p>
+</article>
+</div>
+</section>
+
+<section class="section" id="quiz">
+<div class="heading"><h2>📝 آزمون کوتاه</h2><span class="sub">دانسته‌هایت را بسنج</span></div>
+<div class="card">
+<div id="quizArea">
+<p id="questionCount"></p>
+<h3 id="questionText">برای شروع آزمون آماده‌ای؟</h3>
+<div id="options"></div>
+<p id="quizFeedback" class="feedback" aria-live="polite"></p>
+<div class="row">
+<button class="btn" id="startQuiz">شروع آزمون</button>
+<button class="btn light" id="nextQuestion" hidden>سؤال بعدی</button>
+</div>
+</div>
+<div id="quizResult" hidden></div>
+</div>
+</section>
+
+<section class="section" id="notes">
+<div class="heading"><h2>📒 دفتر یادداشت</h2><span class="sub">یادداشت‌ها در همین مرورگر ذخیره می‌شوند</span></div>
+<div class="card">
+<input id="noteTitle" class="input" placeholder="عنوان یادداشت">
+<textarea id="noteText" placeholder="نکته‌ها و مطالب مهمت را اینجا بنویس..."></textarea>
+<button class="btn" id="saveNote">ذخیره یادداشت</button>
+<div id="notesList" class="grid" style="margin-top:16px"></div>
+</div>
+</section>
+
+<section class="section" id="progress">
+<div class="heading"><h2>🏆 پیشرفت من</h2><span class="sub">نگاهی به تلاش‌هایت</span></div>
+<div class="grid">
+<article class="card"><div class="emoji">✅</div><h3>کارهای انجام‌شده</h3><strong id="progressTasks">۰</strong><p>تعداد کارهایی که تیک زده‌ای</p></article>
+<article class="card"><div class="emoji">📒</div><h3>یادداشت‌های ثبت‌شده</h3><strong id="progressNotes">۰</strong><p>یادداشت‌های ذخیره‌شده در این مرورگر</p></article>
+<article class="card"><div class="emoji">📝</div><h3>آخرین نتیجه آزمون</h3><strong id="progressScore">هنوز آزمونی نداده‌ای</strong><p>نتیجه آخرین آزمون تکمیل‌شده</p></article>
+</div>
+</section>
+
+<section class="section" id="timer">
+<div class="heading"><h2>⏱️ تایمر مطالعه</h2><span class="sub">زمان تمرکز خودت را تنظیم کن</span></div>
+<div class="timer">
+<p>یک بازه تمرکز انتخاب کن</p>
+<div class="timer-display" id="timerDisplay">25:00</div>
+<div class="row" style="justify-content:center">
+<button class="btn gold" id="startTimer">شروع</button>
+<button class="btn" id="pauseTimer">توقف</button>
+<button class="btn" id="resetTimer">شروع دوباره</button>
+</div>
+<div class="row" style="justify-content:center;margin-top:12px">
+<button class="btn" data-minutes="15">۱۵ دقیقه</button>
+<button class="btn" data-minutes="25">۲۵ دقیقه</button>
+<button class="btn" data-minutes="45">۴۵ دقیقه</button>
+</div>
+<p id="timerMessage">پس از پایان زمان، کمی استراحت کن.</p>
+</div>
+</section>
+
+<section class="section" id="resources">
+<div class="heading"><h2>🔎 منابع مفید</h2><span class="sub">ابزارهای کمک‌آموزشی</span></div>
+<div class="grid">
+<article class="card"><div class="emoji">📚</div><h3>کتابخانه شخصی</h3><p>فهرستی از کتاب‌ها و منابعی که می‌خواهی مطالعه کنی بساز.</p></article>
+<article class="card"><div class="emoji">🗓️</div><h3>تقویم آموزشی</h3><p>تاریخ آزمون‌ها، تکالیف و زمان مرور درس‌ها را یادداشت کن.</p></article>
+<article class="card"><div class="emoji">🤝</div><h3>روش مطالعه بهتر</h3><p>مطالب را بخش‌بندی کن، با فاصله مرور کن و برای خودت سؤال بساز.</p></article>
+</div>
+</section>
+
+</main>
+
+<footer>
+<strong>📚 STUDY WORLD</strong>
+<p>یادگیری یک مسیر است؛ هر روز یک قدم جلوتر.</p>
+<p>© ۲۰۲۶ تمامی حقوق محفوظ است.</p>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const fa=n=>Number(n).toLocaleString('fa-IR');
+
+// کتابخانه کتاب‌های درسی: فهرست راهنمای ایران
+const textbookCatalog = {
+  1: ["آموزش قرآن","فارسی","نگارش فارسی","ریاضی","علوم تجربی"],
+  2: ["آموزش قرآن","فارسی","نگارش فارسی","ریاضی","علوم تجربی","هدیه‌های آسمان"],
+  3: ["آموزش قرآن","فارسی","نگارش فارسی","ریاضی","علوم تجربی","مطالعات اجتماعی","هدیه‌های آسمان"],
+  4: ["آموزش قرآن","فارسی","نگارش فارسی","ریاضی","علوم تجربی","مطالعات اجتماعی","هدیه‌های آسمان"],
+  5: ["آموزش قرآن","فارسی","نگارش فارسی","ریاضی","علوم تجربی","مطالعات اجتماعی","هدیه‌های آسمان"],
+  6: ["آموزش قرآن","فارسی","نگارش فارسی","ریاضی","علوم تجربی","مطالعات اجتماعی","هدیه‌های آسمان"],
+  7: ["قرآن","پیام‌های آسمان","فارسی","نگارش فارسی","عربی","زبان انگلیسی","ریاضی","علوم تجربی","مطالعات اجتماعی","کار و فناوری"],
+  8: ["قرآن","پیام‌های آسمان","فارسی","نگارش فارسی","عربی","زبان انگلیسی","ریاضی","علوم تجربی","مطالعات اجتماعی","فرهنگ و هنر","کار و فناوری"],
+  9: ["قرآن","پیام‌های آسمان","فارسی","نگارش فارسی","عربی","زبان انگلیسی","ریاضی","علوم تجربی","مطالعات اجتماعی","آمادگی دفاعی","کار و فناوری"],
+  10: {
+    general:["فارسی ۱","نگارش ۱","دین و زندگی ۱","عربی، زبان قرآن ۱","زبان انگلیسی ۱","آمادگی دفاعی","کارگاه کارآفرینی و تولید"],
+    math:["ریاضی ۱","هندسه ۱","فیزیک ۱","شیمی ۱"],
+    science:["ریاضی ۱","زیست‌شناسی ۱","فیزیک ۱","شیمی ۱"],
+    humanities:["اقتصاد","منطق","جامعه‌شناسی ۱","تاریخ ۱","جغرافیای ایران","علوم و فنون ادبی ۱"],
+    islamic:["اصول عقاید ۱","علوم و معارف قرآنی ۱","احکام ۱","عربی تخصصی ۱"],
+    technical:["دروس عمومی مشترک شاخه فنی‌وحرفه‌ای و کاردانش","دروس پایه و شایستگی‌های فنی مطابق رشته انتخابی"]
+  },
+  11: {
+    general:["فارسی ۲","نگارش ۲","دین و زندگی ۲","عربی، زبان قرآن ۲","زبان انگلیسی ۲","انسان و محیط زیست"],
+    math:["حسابان ۱","هندسه ۲","آمار و احتمال","فیزیک ۲","شیمی ۲"],
+    science:["زیست‌شناسی ۲","ریاضی ۲","فیزیک ۲","شیمی ۲","زمین‌شناسی"],
+    humanities:["علوم و فنون ادبی ۲","جامعه‌شناسی ۲","روان‌شناسی","فلسفه ۱","تاریخ ۲","جغرافیا ۲"],
+    islamic:["اصول عقاید ۲","علوم و معارف قرآنی ۲","احکام ۲","عربی تخصصی ۲","تاریخ اسلام"],
+    technical:["دروس عمومی مشترک شاخه فنی‌وحرفه‌ای و کاردانش","دروس تخصصی و شایستگی‌های فنی مطابق رشته انتخابی"]
+  },
+  12: {
+    general:["فارسی ۳","نگارش ۳","دین و زندگی ۳","عربی، زبان قرآن ۳","زبان انگلیسی ۳","سلامت و بهداشت","هویت اجتماعی"],
+    math:["حسابان ۲","هندسه ۳","ریاضیات گسسته","فیزیک ۳","شیمی ۳"],
+    science:["زیست‌شناسی ۳","ریاضی ۳","فیزیک ۳","شیمی ۳"],
+    humanities:["علوم و فنون ادبی ۳","جامعه‌شناسی ۳","فلسفه ۲","تاریخ ۳","جغرافیا ۳"],
+    islamic:["اصول عقاید ۳","علوم و معارف قرآنی ۳","احکام ۳","عربی تخصصی ۳","فلسفه و کلام"],
+    technical:["دروس عمومی مشترک شاخه فنی‌وحرفه‌ای و کاردانش","دروس تخصصی و شایستگی‌های فنی مطابق رشته انتخابی"]
+  }
+};
+
+const bookGrade = document.getElementById('bookGrade');
+const bookTrack = document.getElementById('bookTrack');
+const bookSearch = document.getElementById('bookSearch');
+const bookList = document.getElementById('bookList');
+
+function getBooksForSelection(grade, track) {
+  const item = textbookCatalog[grade];
+  if (Array.isArray(item)) return item;
+
+  const shared = item.general || [];
+  if (track.startsWith('technical-') || track === 'kardanesh') {
+    let branchName = {
+      'technical-industry':'صنعت',
+      'technical-art':'هنر',
+      'technical-service':'خدمات',
+      'technical-agri':'کشاورزی',
+      'kardanesh':'کاردانش'
+    }[track];
+
+    return [
+      ...shared,
+      `کتاب‌های تخصصی شاخه ${branchName}`,
+      `شایستگی‌های فنی و غیرفنی شاخه ${branchName}`,
+      "کتاب‌های کارگاهی و استانداردهای مهارتی رشته انتخابی"
+    ];
+  }
+
+  return [...shared, ...(item[track] || [])];
+}
+
+function renderTextbooks() {
+  if (!bookGrade || !bookTrack || !bookList) return;
+
+  const grade = Number(bookGrade.value);
+  const track = bookTrack.value;
+  const query = (bookSearch.value || '').trim().toLocaleLowerCase('fa');
+  const names = getBooksForSelection(grade, track);
+  const filtered = names.filter(name => name.toLocaleLowerCase('fa').includes(query));
+
+  bookList.replaceChildren();
+
+  filtered.forEach((name, index) => {
+    const card = document.createElement('article');
+    card.className = 'book-item';
+
+    const title = document.createElement('h4');
+    title.textContent = '📘 ' + name;
+
+    const detail = document.createElement('p');
+    detail.textContent = `پایه ${fa(grade)} | ${grade <= 6 ? 'ابتدایی' : grade <= 9 ? 'متوسطه اول' : 'متوسطه دوم'}`;
+
+    const link = document.createElement('a');
+    link.className = 'btn light';
+    link.href = 'https://chap.sch.ir/';
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = 'جست‌وجو در سایت رسمی';
+
+    card.append(title, detail, link);
+    bookList.append(card);
+  });
+
+  document.getElementById('bookCount').textContent =
+    filtered.length ? `${fa(filtered.length)} عنوان در فهرست نمایش داده می‌شود` : 'کتابی با این عبارت پیدا نشد';
+}
+
+if (bookGrade && bookTrack && bookSearch) {
+  function updateTrackAvailability() {
+    const isHighSchool = Number(bookGrade.value) >= 10;
+    bookTrack.disabled = !isHighSchool;
+    if (!isHighSchool) bookTrack.value = 'general';
+  }
+
+  bookGrade.addEventListener('change', () => {
+    updateTrackAvailability();
+    renderTextbooks();
+  });
+  bookTrack.addEventListener('change', renderTextbooks);
+  bookSearch.addEventListener('input', renderTextbooks);
+  updateTrackAvailability();
+  renderTextbooks();
+}
+
+function toast(msg){
+const t=$('#toast');
+t.textContent=msg;
+t.classList.add('show');
+setTimeout(()=>t.classList.remove('show'),1900);
+}
+
+// جملات انگیزشی
+const quotes=[
+'موفقیت نتیجه قدم‌های کوچک و پیوسته است.',
+'هر روز فرصتی تازه برای یاد گرفتن است.',
+'به جای کامل بودن، روی بهتر شدن تمرکز کن.',
+'پشتکار، مسیرهای سخت را قابل پیمودن می‌کند.',
+'هر سؤالی که می‌پرسی، دری به سوی دانایی باز می‌کند.',
+'امروز کمی تمرین کن تا فردا توانمندتر باشی.'
+];
+
+$('#newQuote').onclick=()=>{
+$('#quoteText').textContent=quotes[Math.floor(Math.random()*quotes.length)];
+};
+
+// ذخیره هدف روزانه
+$('#saveGoal').onclick=()=>{
+const v=$('#dailyGoal').value.trim();
+if(!v)return toast('لطفاً هدف امروز را بنویس');
+localStorage.setItem('studyGoal',v);
+$('#goalDisplay').textContent='هدف ذخیره‌شده: '+v;
+toast('هدف ذخیره شد');
+};
+
+if(localStorage.getItem('studyGoal')){
+$('#dailyGoal').value=localStorage.getItem('studyGoal');
+$('#goalDisplay').textContent='هدف ذخیره‌شده: '+localStorage.getItem('studyGoal');
+}
+
+// برنامه مطالعه
+function updateTasks(){
+const checks=[...document.querySelectorAll('.task-check')];
+const done=checks.filter(x=>x.checked).length;
+const total=checks.length;
+$('#taskProgress').style.width=(total?done/total*100:0)+'%';
+$('#taskSummary').textContent=`${fa(done)} از ${fa(total)} کار انجام شده است.`;
+$('#statTasks').textContent=fa(done);
+$('#progressTasks').textContent=fa(done);
+}
+
+$('#taskList').addEventListener('change',e=>{
+if(e.target.classList.contains('task-check')){
+updateTasks();
+saveTaskState();
+}
+});
+
+function saveTaskState(){
+localStorage.setItem('studyTasks',JSON.stringify(
+[...document.querySelectorAll('.task-check')].map(x=>x.checked)
+));
+}
+
+// افزودن کار جدید
+$('#addTask').onclick=()=>{
+const input=$('#newTask');
+const v=input.value.trim();
+if(!v)return toast('عنوان کار را وارد کن');
+
+const label=document.createElement('label');
+label.className='task';
+
+const cb=document.createElement('input');
+cb.type='checkbox';
+cb.className='task-check';
+
+const span=document.createElement('span');
+span.textContent=v;
+
+label.append(cb,span);
+$('#taskList').append(label);
+input.value='';
+
+updateTasks();
+saveTaskState();
+};
+
+// بازیابی وضعیت کارها
+try{
+const saved=JSON.parse(localStorage.getItem('studyTasks')||'[]');
+document.querySelectorAll('.task-check').forEach((x,i)=>x.checked=!!saved[i]);
+}catch(e){}
+updateTasks();
+
+// دفتر یادداشت
+let notes=[];
+try{
+notes=JSON.parse(localStorage.getItem('studyNotes')||'[]');
+}catch(e){
+notes=[];
+}
+
+function renderNotes(){
+const box=$('#notesList');
+box.replaceChildren();
+
+notes.forEach((n,i)=>{
+const card=document.createElement('article');
+card.className='card';
+
+const h=document.createElement('h3');
+h.textContent=n.title;
+
+const p=document.createElement('p');
+p.textContent=n.text;
+
+const b=document.createElement('button');
+b.className='btn light';
+b.textContent='حذف یادداشت';
+
+b.onclick=()=>{
+notes.splice(i,1);
+saveNotes();
+};
+
+card.append(h,p,b);
+box.append(card);
+});
+
+$('#statNotes').textContent=fa(notes.length);
+$('#progressNotes').textContent=fa(notes.length);
+}
+
+function saveNotes(){
+localStorage.setItem('studyNotes',JSON.stringify(notes));
+renderNotes();
+}
+
+$('#saveNote').onclick=()=>{
+const title=$('#noteTitle').value.trim();
+const text=$('#noteText').value.trim();
+
+if(!title||!text)return toast('عنوان و متن یادداشت را وارد کن');
+
+notes.unshift({title,text});
+
+$('#noteTitle').value='';
+$('#noteText').value='';
+
+saveNotes();
+toast('یادداشت ذخیره شد');
+};
+
+renderNotes();
+
+// سوالات آزمون
+const questions=[
+{q:'حاصل ۷ × ۸ کدام است؟',o:['۵۴','۵۶','۶۴','۴۸'],a:1},
+{q:'کدام سیاره به سیاره سرخ معروف است؟',o:['زهره','مشتری','مریخ','عطارد'],a:2},
+{q:'جمع واژه «کتاب» چیست؟',o:['کتابان','کتاب‌ها','کتابی','کتابین'],a:1},
+{q:'معنی واژه انگلیسی Apple چیست؟',o:['پرتقال','سیب','موز','انگور'],a:1},
+{q:'آب در فشار معمولی در چند درجه سانتی‌گراد می‌جوشد؟',o:['۵۰','۷۵','۱۰۰','۱۲۰'],a:2}
+];
+
+let qi=0;
+let score=0;
+let answered=false;
+
+function showQuestion(){
+answered=false;
+$('#quizResult').hidden=true;
+$('#quizArea').hidden=false;
+
+const q=questions[qi];
+
+$('#questionCount').textContent=`سؤال ${fa(qi+1)} از ${fa(questions.length)}`;
+$('#questionText').textContent=q.q;
+$('#quizFeedback').textContent='';
+$('#options').replaceChildren();
+
+q.o.forEach((v,i)=>{
+const b=document.createElement('button');
+b.className='quiz-option';
+b.textContent=v;
+
+b.onclick=()=>{
+if(answered)return;
+answered=true;
+
+const correct=i===q.a;
+if(correct)score++;
+
+$('#quizFeedback').textContent=correct
+?'آفرین! پاسخ درست است.'
+:'این پاسخ درست نیست. پاسخ صحیح: '+q.o[q.a];
+
+$('#quizFeedback').style.color=correct?'#168653':'#b45309';
+
+[...$('#options').children].forEach((el,j)=>{
+el.disabled=true;
+if(j===q.a)el.classList.add('selected');
+});
+
+$('#nextQuestion').hidden=false;
+$('#nextQuestion').textContent=qi===questions.length-1
+?'دیدن نتیجه'
+:'سؤال بعدی';
+};
+
+$('#options').append(b);
+});
+}
+
+// شروع آزمون
+$('#startQuiz').onclick=()=>{
+qi=0;
+score=0;
+$('#startQuiz').hidden=true;
+$('#nextQuestion').hidden=true;
+showQuestion();
+};
+
+// سؤال بعدی و محاسبه نمره
+$('#nextQuestion').onclick=()=>{
+if(qi<questions.length-1){
+qi++;
+showQuestion();
+$('#nextQuestion').hidden=true;
+}else{
+const percent=Math.round(score/questions.length*100);
+
+$('#quizArea').hidden=true;
+$('#quizResult').hidden=false;
+
+$('#quizResult').innerHTML=`
+<h3>آزمون به پایان رسید 🎉</h3>
+<p>پاسخ درست: ${fa(score)} از ${fa(questions.length)}</p>
+<h2>نمره: ${fa(percent)} از ۱۰۰</h2>
+<button class="btn" id="retryQuiz">تکرار آزمون</button>
+`;
+
+localStorage.setItem('lastStudyScore',percent);
+$('#statScore').textContent=fa(percent);
+$('#progressScore').textContent=fa(percent)+' از ۱۰۰';
+
+$('#retryQuiz').onclick=()=>{
+$('#startQuiz').hidden=false;
+$('#nextQuestion').hidden=true;
+$('#quizResult').hidden=true;
+$('#quizArea').hidden=false;
+$('#questionText').textContent='برای شروع آزمون آماده‌ای؟';
+$('#questionCount').textContent='';
+$('#options').replaceChildren();
+$('#quizFeedback').textContent='';
+};
+}
+};
+
+// نمایش آخرین نمره
+if(localStorage.getItem('lastStudyScore')){
+$('#statScore').textContent=fa(localStorage.getItem('lastStudyScore'));
+$('#progressScore').textContent=fa(localStorage.getItem('lastStudyScore'))+' از ۱۰۰';
+}
+
+// تایمر مطالعه
+let remaining=25*60;
+let timerId=null;
+
+function displayTimer(){
+const m=Math.floor(remaining/60);
+const s=remaining%60;
+$('#timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function stopTimer(){
+if(timerId){
+clearInterval(timerId);
+timerId=null;
+}
+}
+
+// شروع تایمر
+$('#startTimer').onclick=()=>{
+if(timerId)return;
+
+$('#timerMessage').textContent='زمان تمرکز شروع شد؛ با آرامش ادامه بده.';
+
+timerId=setInterval(()=>{
+remaining--;
+displayTimer();
+
+if(remaining<=0){
+stopTimer();
+$('#timerMessage').textContent='آفرین! زمان این بازه تمام شد. کمی استراحت کن.';
+toast('زمان مطالعه به پایان رسید');
+}
+},1000);
+};
+
+// توقف تایمر
+$('#pauseTimer').onclick=()=>{
+stopTimer();
+$('#timerMessage').textContent='تایمر متوقف شد.';
+};
+
+// شروع دوباره
+$('#resetTimer').onclick=()=>{
+stopTimer();
+remaining=25*60;
+displayTimer();
+$('#timerMessage').textContent='تایمر برای ۲۵ دقیقه آماده است.';
+};
+
+// انتخاب زمان
+document.querySelectorAll('[data-minutes]').forEach(b=>{
+b.onclick=()=>{
+stopTimer();
+remaining=Number(b.dataset.minutes)*60;
+displayTimer();
+$('#timerMessage').textContent=`تایمر برای ${b.textContent} تنظیم شد.`;
+};
+});
+
+displayTimer();
+</script>
+</body>
+</html>
